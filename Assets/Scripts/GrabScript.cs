@@ -28,4 +28,9 @@ public class GrabScript : MonoBehaviour
         grabPoint = point;
         grabbed = !grabbed;
     }
+
+    public void unGrab()
+    {
+        grabbed = false;
+    }
 }

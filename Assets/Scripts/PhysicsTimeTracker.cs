@@ -4,8 +4,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class TimeTracker : MonoBehaviour
+public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
 {
+    private InputScript inputScript;
+
     [System.Serializable]
     public struct transformData
     {
@@ -24,9 +26,10 @@ public class TimeTracker : MonoBehaviour
     }
 
     private Queue<transformData> dataQueue = new Queue<transformData>();
+    private List<transformData> dataList = new List<transformData>();
+    int listPos;
 
-    public bool reversing = false;
-    private bool isRunning = false;
+    public bool manipulating = false;
 
     private Rigidbody rb;
 
@@ -36,13 +39,26 @@ public class TimeTracker : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        inputScript = GameObject.Find("Player").GetComponent<InputScript>();
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!reversing)
+        if (inputScript.timeDir > 0)
+        {
+            Forward();
+        } else if (inputScript.timeDir < 0)
+        {
+            Reverse();
+        }
+        if (inputScript.timeResumed && manipulating)
+        {
+            Resume();
+        }
+
+        if (!manipulating)
         {
             transformData data = new transformData(transform.position, transform.rotation, rb.linearVelocity, rb.angularVelocity);
 
@@ -69,34 +85,77 @@ public class TimeTracker : MonoBehaviour
             {
                 dataQueue.Enqueue(data);
             }
-        } else if (!isRunning)
-        {
-            rb.isKinematic = true;
-            StartCoroutine(reverseCoroutine());
-        }
+        } 
     }
 
-    IEnumerator reverseCoroutine()
+    public void Reverse()
     {
-        isRunning = true;
-        transformData[] dataArray = dataQueue.ToArray();
-        for (int i = dataQueue.Count - 1; i >= 0; i--)
+        if (!manipulating)
         {
-            transform.position = dataArray[i].position;
-            transform.rotation = dataArray[i].rotation;
-            yield return new WaitForEndOfFrame();
+            Manipulate();
         }
 
-        dataQueue.Clear();
+        if (listPos > 0)
+        {
+            listPos--;
+        }
 
+        transform.position = dataList[listPos].position;
+        transform.rotation = dataList[listPos].rotation;
+    }
+
+    public void Forward()
+    {
+        if (!manipulating)
+        {
+            Manipulate();
+        }
+
+        if (listPos < dataList.Count - 1)
+        {
+            listPos++;
+        }
+
+        transform.position = dataList[listPos].position;
+        transform.rotation = dataList[listPos].rotation;
+    }
+
+    public void Manipulate()
+    {
+        rb.isKinematic = true;
+        manipulating = true;
+
+        if (TryGetComponent<GrabScript>(out GrabScript grab))
+        {
+            grab.unGrab();
+        }
+
+        while (dataQueue.Count != 0)
+        {
+            dataList.Add(dataQueue.Dequeue());
+        }
+
+        listPos = dataList.Count - 1;
+    }
+
+    public void Resume()
+    {
         rb.isKinematic = false;
+        manipulating = false;
 
-        transform.position = dataArray[0].position;
-        transform.rotation = dataArray[0].rotation;
-        rb.linearVelocity = dataArray[0].velocity;
-        rb.angularVelocity = dataArray[0].angularVelocity;
+        if (TryGetComponent<GrabScript>(out GrabScript grab))
+        {
+            grab.unGrab();
+        }
 
-        isRunning = false;
-        reversing = false;
+        rb.linearVelocity = dataList[listPos].velocity;
+        rb.angularVelocity = dataList[listPos].angularVelocity;
+
+        for (int i = 0; i < listPos; i++)
+        {
+            dataQueue.Enqueue(dataList[i]);
+        }
+
+        dataList.Clear();
     }
 }
