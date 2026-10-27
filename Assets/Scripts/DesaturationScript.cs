@@ -23,7 +23,7 @@ public class DesaturationScript : MonoBehaviour
 
     private Coroutine myCoroutine;
 
-    public TimeTracker[] timeObject;
+    public PhysicsTimeTracker[] timeObject;
 
     public GameObject grabPoint;
 
@@ -74,14 +74,14 @@ public class DesaturationScript : MonoBehaviour
             hasRun = false;
         }
 
-        if (isTimeStopped && !hasRun && myCoroutine == null)
-        {
-            myCoroutine = StartCoroutine(SaturationCoroutine(-1));
-            for (int i = 0; i < timeObject.Length; i++)
-            {
-                timeObject[i].reversing = true;
-            }
-        }
+        //if (isTimeStopped && !hasRun && myCoroutine == null)
+        //{
+        //    myCoroutine = StartCoroutine(SaturationCoroutine(-1));
+        //    for (int i = 0; i < timeObject.Length; i++)
+        //    {
+        //        timeObject[i].reversing = true;
+        //    }
+        //}
         if (!isTimeStopped && !hasRun && myCoroutine == null)
         {
             myCoroutine = StartCoroutine(SaturationCoroutine(1));

@@ -37,7 +37,7 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false
@@ -83,15 +83,6 @@
                     "type": "Button",
                     "id": "641cd816-40e6-41b4-8c3d-04687c349290",
                     "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Power",
-                    "type": "Button",
-                    "id": "9f8f5150-427f-4d8d-a2e8-b3b0b33dceea",
-                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -304,54 +295,10 @@
                 {
                     "name": "",
                     "id": "05f6913d-c316-48b2-a6bb-e225f14c7960",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Grab",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "886e731e-7071-4ae4-95c0-e61739dad6fd",
-                    "path": "<Touchscreen>/primaryTouch/tap",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Touch",
-                    "action": "Grab",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ee3d0cd2-254e-47a7-a8cb-bc94d9658c54",
-                    "path": "<Joystick>/trigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Joystick",
-                    "action": "Grab",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8255d333-5683-4943-a58a-ccb207ff1dce",
-                    "path": "<XRController>/{PrimaryAction}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "XR",
-                    "action": "Grab",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b3c1c7f0-bd20-4ee7-a0f1-899b24bca6d7",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
                     "action": "Grab",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -523,17 +470,6 @@
                 },
                 {
                     "name": "",
-                    "id": "671e1423-66ce-4e0e-b1fe-1f340faa0c04",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Power",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4d48a0af-9724-42d2-abcb-9c9c42c614b2",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -555,7 +491,7 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Dpad",
+                    "name": "Shoulders",
                     "id": "9e15be04-86b2-49a6-8f37-52ac0df11762",
                     "path": "1DAxis",
                     "interactions": "",
@@ -568,7 +504,7 @@
                 {
                     "name": "negative",
                     "id": "78b9570b-605d-4beb-96c0-390aeaaa6e07",
-                    "path": "<Gamepad>/dpad/left",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -579,7 +515,7 @@
                 {
                     "name": "positive",
                     "id": "23cbcae4-2634-462c-86f8-c2f1bbdfa411",
-                    "path": "<Gamepad>/dpad/right",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -588,7 +524,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Q/E",
+                    "name": "L/R",
                     "id": "a5f47dad-0d7e-4ca8-b3ad-f5e59a003798",
                     "path": "1DAxis",
                     "interactions": "",
@@ -601,7 +537,7 @@
                 {
                     "name": "negative",
                     "id": "bcc65576-b1ea-4dd2-b63c-eeb9fe31f7be",
-                    "path": "<Keyboard>/q",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -612,7 +548,7 @@
                 {
                     "name": "positive",
                     "id": "22313180-a330-4449-8c8b-215928a4b06b",
-                    "path": "<Keyboard>/e",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -623,7 +559,7 @@
                 {
                     "name": "",
                     "id": "87da3ab3-af43-4d6e-8fe8-c50b392900b8",
-                    "path": "<Keyboard>/f",
+                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -634,7 +570,7 @@
                 {
                     "name": "",
                     "id": "9eea1e0a-414a-4423-8aec-ca7d183e94d6",
-                    "path": "<Gamepad>/buttonNorth",
+                    "path": "<Gamepad>/rightStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
