@@ -6,22 +6,25 @@ public class ButtonScript : MonoBehaviour, iInteractable
     public bool manipulating { get; set; }
     public bool activated { get; set; }
 
-    Transform child;
+    int collisions = 0;
+    Coroutine myCoroutine;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         manipulating = false;
         activated = false;
-
-        child = transform.GetChild(0);
     }
 
     private void Update()
     {
-        if (child.localPosition.y < 0 && activated == false)
+        if (collisions == 0 && myCoroutine == null)
         {
-            child.localPosition += new Vector3(0, 0.01f, 0);
+            activated = false;
+        }
+        if (transform.localPosition.y < 0 && activated == false && !manipulating)
+        {
+            transform.localPosition += new Vector3(0, 0.005f, 0);
         }
     }
 
@@ -30,24 +33,51 @@ public class ButtonScript : MonoBehaviour, iInteractable
         activated = !activated;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player") || other.CompareTag("PhysicsObject"))
+        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("PhysicsObject"))
         {
-            child.position -= new Vector3(0, 0.01f, 0);
-            if (child.localPosition.y < -0.15f)
-            {
-                child.localPosition = new Vector3(0, -0.15f, 0);
-            }
-            activated = true;
+            collisions++;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionStay(Collision collision)
     {
-        if (other.CompareTag("Player") || other.CompareTag("PhysicsObject"))
+        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("PhysicsObject"))
         {
-            activated = false;
+            if (!manipulating)
+            {
+                if (myCoroutine != null)
+                {
+                    StopCoroutine(myCoroutine);
+                }
+
+                transform.position -= new Vector3(0, 0.01f, 0);
+                if (transform.localPosition.y < -0.15f)
+                {
+                    transform.localPosition = new Vector3(0, -0.15f, 0);
+                }
+                activated = true;
+            }
         }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("PhysicsObject"))
+        {
+            collisions--;
+            if (!manipulating)
+            {
+                myCoroutine = StartCoroutine(deactivateCoroutine());
+            }
+        }
+    }
+
+    IEnumerator deactivateCoroutine()
+    {
+        yield return new WaitForSeconds(0.1f);
+        activated = false;
+        myCoroutine = null;
     }
 }
