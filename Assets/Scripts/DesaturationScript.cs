@@ -45,29 +45,6 @@ public class DesaturationScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (grab.WasPressedThisFrame())
-        {
-            if (target == null)
-            {
-                Ray ray = new Ray(transform.position, transform.forward);
-                RaycastHit hit;
-
-
-                if (Physics.Raycast(ray, out hit, 10, noPlayerLayer))
-                {
-                    if (hit.collider.CompareTag("Physics"))
-                    {
-                        target = hit.collider.gameObject;
-                        target.GetComponent<GrabScript>().grab(grabPoint);
-                    }
-                }
-            } else
-            {
-                target.GetComponent<GrabScript>().grab(grabPoint);
-                target = null;
-            }
-        }
-
         if (power.WasPressedThisFrame() && hasRun)
         {
             isTimeStopped = !isTimeStopped;

@@ -46,6 +46,7 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
     // Update is called once per frame
     void Update()
     {
+        rb.WakeUp();
         if (inputScript.timeDir > 0)
         {
             Forward();
@@ -125,11 +126,6 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
         rb.isKinematic = true;
         manipulating = true;
 
-        if (TryGetComponent<GrabScript>(out GrabScript grab))
-        {
-            grab.unGrab();
-        }
-
         while (dataQueue.Count != 0)
         {
             dataList.Add(dataQueue.Dequeue());
@@ -142,11 +138,6 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
     {
         rb.isKinematic = false;
         manipulating = false;
-
-        if (TryGetComponent<GrabScript>(out GrabScript grab))
-        {
-            grab.unGrab();
-        }
 
         rb.linearVelocity = dataList[listPos].velocity;
         rb.angularVelocity = dataList[listPos].angularVelocity;

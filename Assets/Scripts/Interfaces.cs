@@ -14,3 +14,9 @@ public interface iInteractable
     bool activated { get; set; }
     void Interact();
 }
+
+public interface iActivatable
+{
+    bool manipulating { get; set; }
+    float normalisedTime { get; set; }
+}
