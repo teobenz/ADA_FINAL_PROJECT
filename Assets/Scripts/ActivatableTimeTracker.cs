@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Analytics.IAnalytic;
 
-public class DoorTimeTracker : MonoBehaviour, iTimeTrack
+public class ActivatableTimeTracker : MonoBehaviour, iTimeTrack
 {
+
     private bool manipulating = false;
 
     private Queue<data> dataQueue = new Queue<data>();
@@ -11,30 +13,25 @@ public class DoorTimeTracker : MonoBehaviour, iTimeTrack
 
     public struct data
     {
-        public Vector3 leftPosition;
-        public Vector3 rightPosition;
+        
+        public float normalisedTime;
 
-        public data(Vector3 leftPos, Vector3 rightPos)
+
+        public data(float norms)
         {
-            leftPosition = leftPos;
-            rightPosition = rightPos;
+            normalisedTime = norms;
         }
     }
 
-    private Transform leftDoor;
-    private Transform rightDoor;
+    iActivatable activatableScript;
 
     private InputScript inputScript;
-    private DoorScript doorScript;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         inputScript = GameObject.Find("Player").GetComponent<InputScript>();
-        doorScript = GetComponent<DoorScript>();
-
-        leftDoor = transform.GetChild(0);
-        rightDoor = transform.GetChild(1);
+        activatableScript = GetComponent<iActivatable>();
     }
 
     // Update is called once per frame
@@ -55,7 +52,7 @@ public class DoorTimeTracker : MonoBehaviour, iTimeTrack
 
         if (!manipulating)
         {
-            data currData = new data(leftDoor.position, rightDoor.position);
+            data currData = new data(activatableScript.normalisedTime);
 
             if (dataQueue.Count > 3000)
             {
@@ -77,10 +74,8 @@ public class DoorTimeTracker : MonoBehaviour, iTimeTrack
             listPos--;
         }
 
-        leftDoor.position = dataList[listPos].leftPosition;
-        rightDoor.position = dataList[listPos].rightPosition;
+        activatableScript.normalisedTime = dataList[listPos].normalisedTime;
     }
-
     public void Forward()
     {
         if (!manipulating)
@@ -93,14 +88,13 @@ public class DoorTimeTracker : MonoBehaviour, iTimeTrack
             listPos++;
         }
 
-        leftDoor.position = dataList[listPos].leftPosition;
-        rightDoor.position = dataList[listPos].rightPosition;
+        activatableScript.normalisedTime = dataList[listPos].normalisedTime;
     }
 
     public void Manipulate()
     {
         manipulating = true;
-        doorScript.manipulating = true;
+        activatableScript.manipulating = true;
 
         while (dataQueue.Count != 0)
         {
@@ -113,7 +107,7 @@ public class DoorTimeTracker : MonoBehaviour, iTimeTrack
     public void Resume()
     {
         manipulating = false;
-        doorScript.manipulating = false;
+        activatableScript.manipulating = false;
 
         for (int i = 0; i < listPos; i++)
         {

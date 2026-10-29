@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,8 @@ public class WalkController : MonoBehaviour
 
     GrabScript grabScript;
 
+    private bool recentJump = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,7 +36,7 @@ public class WalkController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 1.1f * transform.localScale.y, groundLayer))
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 1.2f * transform.localScale.y, groundLayer))
         {
             if (hit.collider.gameObject == grabScript.grabbedObject)
             {
@@ -43,6 +46,11 @@ public class WalkController : MonoBehaviour
         } else
         {
             isGrounded = false;
+        }
+
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hitGround, 1.5f * transform.localScale.y, groundLayer) && !recentJump && !isGrounded)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y - (transform.position.y - hitGround.point.y) + 1.2f, transform.position.z);
         }
 
         if (!isCrouched && inputScript.crouchPressed)
@@ -66,6 +74,7 @@ public class WalkController : MonoBehaviour
         if (isGrounded && inputScript.jumpPressed)
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 5f, rb.linearVelocity.z);
+            StartCoroutine(JumpedCoroutine());
         }
 
         rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0);
@@ -76,5 +85,12 @@ public class WalkController : MonoBehaviour
         rotation += inputScript.lookDir[0] * 0.1f;
 
         transform.rotation = Quaternion.Euler(0, rotation, 0);
+    }
+
+    IEnumerator JumpedCoroutine()
+    {
+        recentJump = true;
+        yield return new WaitForSeconds(2);
+        recentJump = false;
     }
 }

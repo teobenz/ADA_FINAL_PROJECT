@@ -1,19 +1,23 @@
 using UnityEditor;
 using UnityEngine;
 
-public class DoorScript : MonoBehaviour
+public class DoorScript : MonoBehaviour, iActivatable
 {
     public GameObject connectedInteractable;
     private iInteractable interactable;
 
-    Transform leftDoor;
-    Transform rightDoor;
+    public Animator[] animators;
 
-    public bool manipulating = false;
+    public bool manipulating { get; set; }
+
+    public float normalisedTime { get; set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        manipulating = false;
+        normalisedTime = 0;
+
         if (connectedInteractable == null)
         {
             Debug.LogError("no connected interactable found, destroying door script on " + gameObject.name);
@@ -29,8 +33,10 @@ public class DoorScript : MonoBehaviour
             Destroy(this);
         }
 
-        leftDoor = transform.GetChild(0);
-        rightDoor = transform.GetChild(1);
+        for (int j = 0; j < animators.Length; j++)
+        {
+            animators[j].speed = 0;
+        }
     }
 
     // Update is called once per frame
@@ -40,26 +46,27 @@ public class DoorScript : MonoBehaviour
         {
             if (interactable.activated)
             {
-                leftDoor.localPosition -= new Vector3(0.01f, 0, 0);
-                rightDoor.localPosition += new Vector3(0.01f, 0, 0);
+                normalisedTime += 0.005f;
 
-                if (leftDoor.localPosition.x < -1.9f || rightDoor.localPosition.x > 1.9f)
+                if (normalisedTime > 1)
                 {
-                    leftDoor.localPosition = new Vector3(-1.9f, 2, 0);
-                    rightDoor.localPosition = new Vector3(1.9f, 2, 0);
+                    normalisedTime = 1;
                 }
             }
             else
             {
-                leftDoor.localPosition += new Vector3(0.01f, 0, 0);
-                rightDoor.localPosition -= new Vector3(0.01f, 0, 0);
+                normalisedTime -= 0.005f;
 
-                if (leftDoor.localPosition.x > -0.75f || rightDoor.localPosition.x < 0.75f)
+                if (normalisedTime < 0)
                 {
-                    leftDoor.localPosition = new Vector3(-0.75f, 2, 0);
-                    rightDoor.localPosition = new Vector3(0.75f, 2, 0);
+                    normalisedTime = 0;
                 }
             }
+        }
+
+        for (int i = 0; i < animators.Length; i++)
+        {
+            animators[i].Play(animators[i].GetCurrentAnimatorClipInfo(0)[0].clip.name, 0, normalisedTime);
         }
     }
 }
