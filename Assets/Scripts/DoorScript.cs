@@ -46,7 +46,7 @@ public class DoorScript : MonoBehaviour, iActivatable
         {
             if (interactable.activated)
             {
-                normalisedTime += 0.005f;
+                normalisedTime += 0.02f;
 
                 if (normalisedTime > 1)
                 {
@@ -55,7 +55,7 @@ public class DoorScript : MonoBehaviour, iActivatable
             }
             else
             {
-                normalisedTime -= 0.005f;
+                normalisedTime -= 0.02f;
 
                 if (normalisedTime < 0)
                 {
