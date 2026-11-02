@@ -12,6 +12,8 @@ public class DoorScript : MonoBehaviour, iActivatable
 
     public float normalisedTime { get; set; }
 
+    public float animationSpeed = 1f;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -46,7 +48,7 @@ public class DoorScript : MonoBehaviour, iActivatable
         {
             if (interactable.activated)
             {
-                normalisedTime += 0.02f;
+                normalisedTime += animationSpeed * Time.deltaTime;
 
                 if (normalisedTime > 1)
                 {
@@ -55,7 +57,7 @@ public class DoorScript : MonoBehaviour, iActivatable
             }
             else
             {
-                normalisedTime -= 0.02f;
+                normalisedTime -= animationSpeed * Time.deltaTime;
 
                 if (normalisedTime < 0)
                 {
