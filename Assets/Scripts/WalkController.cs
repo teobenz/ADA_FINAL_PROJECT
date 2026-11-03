@@ -71,6 +71,30 @@ public class WalkController : MonoBehaviour
             }
         }
 
+        if (Physics.Raycast(transform.position, transform.up, out RaycastHit hitAbove, 1.2f * transform.localScale.y))
+        {
+            if (hitAbove.collider.gameObject.TryGetComponent<crusherController>(out crusherController crusher))
+            {
+                if ((!crusher.manipulating || isCrouched) && crusher.activated)
+                {
+                    Debug.Log("player died at " + Time.deltaTime);
+                } else if (crusher.manipulating && isCrouched) 
+                { 
+                    if ((hit.point - transform.position).magnitude < 0.5f)
+                    {
+                        Debug.Log("player died at " + Time.deltaTime);
+                    }
+                }
+                else if (!isCrouched)
+                {
+                    transform.position += new Vector3(0, -0.5f, 0);
+                    transform.localScale = new Vector3(1, 0.5f, 1);
+                    moveSpeed /= 2;
+                    isCrouched = true;
+                }
+            }
+        }
+
         if (isGrounded && inputScript.jumpPressed)
         {
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 5f, rb.linearVelocity.z);

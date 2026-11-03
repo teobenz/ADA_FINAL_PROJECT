@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class DoorScript : MonoBehaviour, iActivatable
 {
-    public GameObject connectedInteractable;
-    private iInteractable interactable;
+    public GameObject[] connectedInteractables;
+    private iInteractable[] interactables;
 
     public Animator[] animators;
-
     public bool manipulating { get; set; }
 
     public float normalisedTime { get; set; }
 
     public float animationSpeed = 1f;
+
+    public int requiredCount = 1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,19 +21,24 @@ public class DoorScript : MonoBehaviour, iActivatable
         manipulating = false;
         normalisedTime = 0;
 
-        if (connectedInteractable == null)
+        if (connectedInteractables == null)
         {
             Debug.LogError("no connected interactable found, destroying door script on " + gameObject.name);
             Destroy(this);
         }
 
-        if (connectedInteractable.TryGetComponent<iInteractable>(out iInteractable i))
+        interactables = new iInteractable[connectedInteractables.Length];
+        for (int i = 0; i < connectedInteractables.Length; i++)
         {
-            interactable = i;
-        } else
-        {
-            Debug.LogError("no interactable script found on " + connectedInteractable);
-            Destroy(this);
+            if (connectedInteractables[i].TryGetComponent<iInteractable>(out iInteractable interactable))
+            {
+                interactables[i] = interactable;
+            }
+            else
+            {
+                Debug.LogError("no interactable script found on " + connectedInteractables[i]);
+                Destroy(this);
+            }
         }
 
         for (int j = 0; j < animators.Length; j++)
@@ -44,9 +50,18 @@ public class DoorScript : MonoBehaviour, iActivatable
     // Update is called once per frame
     void Update()
     {
+        int count = 0;
         if (!manipulating)
         {
-            if (interactable.activated)
+            for (int i = 0; i < interactables.Length; i++)
+            {
+                if (interactables[i].activated)
+                {
+                    count++;
+                }
+            }
+
+            if (count == requiredCount)
             {
                 normalisedTime += animationSpeed * Time.deltaTime;
 
