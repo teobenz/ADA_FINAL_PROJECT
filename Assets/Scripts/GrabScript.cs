@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.LowLevelPhysics2D;
 
@@ -39,6 +40,11 @@ public class GrabScript : MonoBehaviour
             {
                 if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 2.5f, physicsLayer))
                 {
+                    if (hit.transform.gameObject.TryGetComponent<iInteractable>(out iInteractable interactable))
+                    {
+                        interactable.Interact();
+                        return;
+                    }
                     if (hit.transform.gameObject.TryGetComponent<Rigidbody>(out Rigidbody rb))
                     {
                         grabbedObject = hit.transform.gameObject;
