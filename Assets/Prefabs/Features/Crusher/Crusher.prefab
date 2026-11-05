@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 2f04dfa7a48b3fc458ba1a7a887094b9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ed6acbbc7b1220d41854a8f729d9a79f, type: 2}
     - target: {fileID: 919132149155446097, guid: 2f04dfa7a48b3fc458ba1a7a887094b9, type: 3}
       propertyPath: m_Name
       value: Crusher
@@ -112,6 +116,8 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 8
+  currentStep: 0
+  globalTimer: 0
 --- !u!114 &7898362283303649091
 MonoBehaviour:
   m_ObjectHideFlags: 0

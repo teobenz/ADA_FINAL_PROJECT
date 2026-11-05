@@ -96,6 +96,11 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
             Manipulate();
         }
 
+        if (dataList.Count == 0)
+        {
+            return;
+        }
+
         if (listPos > 0)
         {
             listPos--;
@@ -110,6 +115,11 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
         if (!manipulating)
         {
             Manipulate();
+        }
+
+        if (dataList.Count == 0)
+        {
+            return;
         }
 
         if (listPos < dataList.Count - 1)
@@ -131,6 +141,12 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
             dataList.Add(dataQueue.Dequeue());
         }
 
+        if (dataList.Count == 0)
+        {
+            Resume();
+            return;
+        }
+
         listPos = dataList.Count - 1;
     }
 
@@ -138,6 +154,11 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
     {
         rb.isKinematic = false;
         manipulating = false;
+
+        if (dataList.Count == 0)
+        {
+            return;
+        }
 
         rb.linearVelocity = dataList[listPos].velocity;
         rb.angularVelocity = dataList[listPos].angularVelocity;

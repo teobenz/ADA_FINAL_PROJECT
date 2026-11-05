@@ -10,9 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7995665724807182354}
   - component: {fileID: 290118530232415867}
-  - component: {fileID: 9013074400487640497}
   m_Layer: 0
-  m_Name: Door
+  m_Name: DoorVariant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,18 +56,6 @@ MonoBehaviour:
   - {fileID: 1348847023184692018}
   animationSpeed: 1
   requiredCount: 1
---- !u!114 &9013074400487640497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7915502275050982045}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a9cf3aa466a04a4496cf3b4f4913f30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ActivatableTimeTracker
 --- !u!1001 &1212907599862923762
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,6 +104,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d32e7a7f2415e5946890b9157c2bcda3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 74e029c607a83be4fa27a63466241aea, type: 2}
     - target: {fileID: 919132149155446097, guid: d32e7a7f2415e5946890b9157c2bcda3, type: 3}
       propertyPath: m_Name
       value: BottomRightDoor
@@ -213,6 +204,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: f33218fc491297243a643a26942fa5fc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 74e029c607a83be4fa27a63466241aea, type: 2}
     - target: {fileID: 919132149155446097, guid: f33218fc491297243a643a26942fa5fc, type: 3}
       propertyPath: m_Name
       value: TopLeftDoor
@@ -309,6 +304,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: b6d4cf8ce7dc453448e0e767028adb84, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 74e029c607a83be4fa27a63466241aea, type: 2}
     - target: {fileID: 919132149155446097, guid: b6d4cf8ce7dc453448e0e767028adb84, type: 3}
       propertyPath: m_Name
       value: BottomLeftDoor
@@ -405,6 +404,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d09aaeb382028eb4482cdbd93ce8b551, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 74e029c607a83be4fa27a63466241aea, type: 2}
     - target: {fileID: 919132149155446097, guid: d09aaeb382028eb4482cdbd93ce8b551, type: 3}
       propertyPath: m_Name
       value: TopRightDoor

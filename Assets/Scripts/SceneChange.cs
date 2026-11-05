@@ -20,6 +20,25 @@ public class SceneChange : MonoBehaviour
 
     IEnumerator LoadSceneAsyncCoroutine()
     {
+        if (PlayerPrefs.HasKey("spawnPosX"))
+        {
+            PlayerPrefs.DeleteKey("spawnPosX");
+        }
+
+        if (PlayerPrefs.HasKey("spawnPosY"))
+        {
+            PlayerPrefs.DeleteKey("spawnPosY");
+        }
+
+        if (PlayerPrefs.HasKey("spawnPosZ"))
+        {
+            PlayerPrefs.DeleteKey("spawnPosZ");
+        }
+
+        if (PlayerPrefs.HasKey("spawnRotation"))
+        {
+            PlayerPrefs.DeleteKey("spawnRotation");
+        }
         yield return new WaitForSeconds(1);
 
         AsyncOperation operand = SceneManager.LoadSceneAsync(nextScene, LoadSceneMode.Single);
