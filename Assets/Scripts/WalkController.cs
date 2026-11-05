@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class WalkController : MonoBehaviour
 {
@@ -31,6 +32,12 @@ public class WalkController : MonoBehaviour
         rotation = transform.rotation.eulerAngles.y;
 
         rb = GetComponent<Rigidbody>();
+
+        if (PlayerPrefs.HasKey("spawnPosX"))
+        {
+            transform.position = new Vector3(PlayerPrefs.GetFloat("spawnPosX"), PlayerPrefs.GetFloat("spawnPosY"), PlayerPrefs.GetFloat("spawnPosZ"));
+            rotation = PlayerPrefs.GetFloat("spawnRotation");
+        }
     }
 
     // Update is called once per frame
@@ -77,12 +84,12 @@ public class WalkController : MonoBehaviour
             {
                 if ((!crusher.manipulating || isCrouched) && crusher.activated)
                 {
-                    Debug.Log("player died at " + Time.deltaTime);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 } else if (crusher.manipulating && isCrouched) 
                 { 
                     if ((hit.point - transform.position).magnitude < 0.5f)
                     {
-                        Debug.Log("player died at " + Time.deltaTime);
+                        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                     }
                 }
                 else if (!isCrouched)

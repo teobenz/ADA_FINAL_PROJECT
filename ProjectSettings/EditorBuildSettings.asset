@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestScene.unity
     guid: f92baa2aad95863448d64cf12af36dca
+  - enabled: 1
+    path: Assets/Scenes/CrusherScene.unity
+    guid: ebbd7a20838a6b845bdd1f7a5b3b74d4
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

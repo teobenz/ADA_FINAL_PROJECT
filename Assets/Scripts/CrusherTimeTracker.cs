@@ -73,6 +73,11 @@ public class CrusherTimeTracker : MonoBehaviour, iTimeTrack
             Manipulate();
         }
 
+        if (dataList.Count == 0)
+        {
+            return;
+        }
+
         if (listPos > 0)
         {
             listPos--;
@@ -86,6 +91,11 @@ public class CrusherTimeTracker : MonoBehaviour, iTimeTrack
         if (!manipulating)
         {
             Manipulate();
+        }
+
+        if (dataList.Count == 0)
+        {
+            return;
         }
 
         if (listPos < dataList.Count - 1)
@@ -107,6 +117,12 @@ public class CrusherTimeTracker : MonoBehaviour, iTimeTrack
             dataList.Add(dataQueue.Dequeue());
         }
 
+        if (dataList.Count == 0)
+        {
+            Resume();
+            return;
+        }
+
         listPos = dataList.Count - 1;
     }
 
@@ -114,6 +130,11 @@ public class CrusherTimeTracker : MonoBehaviour, iTimeTrack
     {
         manipulating = false;
         crusherScript.manipulating = false;
+
+        if (dataList.Count == 0)
+        {
+            return;
+        }
 
         if (dataList[listPos].step == 0)
         {

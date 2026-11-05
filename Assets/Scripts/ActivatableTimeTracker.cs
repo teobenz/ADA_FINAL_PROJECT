@@ -69,6 +69,11 @@ public class ActivatableTimeTracker : MonoBehaviour, iTimeTrack
             Manipulate();
         }
 
+        if (dataList.Count == 0)
+        {
+            return;
+        }
+
         if (listPos > 0)
         {
             listPos--;
@@ -81,6 +86,11 @@ public class ActivatableTimeTracker : MonoBehaviour, iTimeTrack
         if (!manipulating)
         {
             Manipulate();
+        }
+
+        if (dataList.Count == 0)
+        {
+            return;
         }
 
         if (listPos < dataList.Count - 1)
@@ -101,6 +111,12 @@ public class ActivatableTimeTracker : MonoBehaviour, iTimeTrack
             dataList.Add(dataQueue.Dequeue());
         }
 
+        if (dataList.Count == 0)
+        {
+            Resume();
+            return;
+        }
+
         listPos = dataList.Count - 1;
     }
 
@@ -108,6 +124,11 @@ public class ActivatableTimeTracker : MonoBehaviour, iTimeTrack
     {
         manipulating = false;
         activatableScript.manipulating = false;
+
+        if (dataList.Count == 0)
+        {
+            return;
+        }
 
         for (int i = 0; i < listPos; i++)
         {
