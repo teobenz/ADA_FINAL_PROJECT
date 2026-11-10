@@ -1,17 +1,23 @@
 using UnityEngine;
 
-public class MovingPlatform : MonoBehaviour
+public class MovingPlatform : MonoBehaviour, iActivatable
 {
+    public bool manipulating { get; set; }
+
     public Transform startPoint;
     public Transform endPoint;
 
     private Vector3 travel;
-    public float normalisedTime = 0;
+
+    public float startingNormalisedTime = 0;
+    public float normalisedTime { get; set; }
     public float speed = 1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        manipulating = false;
+        normalisedTime = startingNormalisedTime;
         transform.parent = transform.parent.parent;
         travel = endPoint.position - startPoint.position;
     }
@@ -19,11 +25,14 @@ public class MovingPlatform : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        normalisedTime += Time.deltaTime * speed;
-
-        if (normalisedTime > 1)
+        if (!manipulating)
         {
-            normalisedTime = 0;
+            normalisedTime += Time.deltaTime * speed;
+
+            if (normalisedTime > 1)
+            {
+                normalisedTime = 0;
+            }
         }
 
         transform.position = startPoint.position + travel * normalisedTime;
@@ -41,7 +50,10 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            collision.gameObject.transform.parent = transform.parent;
+            if (collision.transform.parent == transform)
+            {
+                collision.gameObject.transform.parent = transform.parent;
+            }
         }
     }
 }
