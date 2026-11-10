@@ -20,3 +20,8 @@ public interface iActivatable
     bool manipulating { get; set; }
     float normalisedTime { get; set; }
 }
+
+public interface iMoveable
+{
+    bool manipulating { get; set; }
+}
