@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SundialTimeTracker : MonoBehaviour
@@ -50,13 +51,13 @@ public class SundialTimeTracker : MonoBehaviour
 
         if (!manipulating)
         {
+            sundialAnimation.rotation = 360 * dataQueue.Count / 3000;
             data currData = new data(sundialAnimation.rotation);
 
-            if (dataQueue.Count > 3000)
+            if (dataQueue.Count < 3000)
             {
-                dataQueue.Dequeue();
+                dataQueue.Enqueue(currData);
             }
-            dataQueue.Enqueue(currData);
         }
     }
 
