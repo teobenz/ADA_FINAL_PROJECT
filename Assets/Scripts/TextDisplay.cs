@@ -33,7 +33,7 @@ public class TextDisplay : MonoBehaviour
             StartCoroutine(DisplayText());
         }
 
-        if (conditionMet && !conditionActivated)
+        if (conditionMet && !conditionActivated && displayed)
         {
             StartCoroutine(TextFade());
         }
@@ -58,6 +58,7 @@ public class TextDisplay : MonoBehaviour
             images[i].gameObject.SetActive(true);
             StartCoroutine(TextAnimation(images[i]));
         }
+        StartCoroutine(displayTimer());
         displayed = true;
     }
 
@@ -112,5 +113,18 @@ public class TextDisplay : MonoBehaviour
             images[i].gameObject.SetActive(false);
         }
         complete = true;
+    }
+
+    IEnumerator displayTimer()
+    {
+        float timer = 0;
+
+        while (timer < 5)
+        {
+            timer += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+
+        conditionMet = true;
     }
 }
