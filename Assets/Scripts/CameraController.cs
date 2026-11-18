@@ -5,6 +5,8 @@ public class CameraController : MonoBehaviour
     private InputScript inputScript;
     private float rotation = 0;
 
+    public bool paused = false;
+
     private void Start()
     {
         inputScript = transform.parent.GetComponent<InputScript>();
@@ -12,6 +14,7 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        if (paused) return;
 
         rotation += -inputScript.lookDir[1] * 0.1f;
 

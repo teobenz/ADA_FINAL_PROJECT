@@ -22,6 +22,8 @@ public class WalkController : MonoBehaviour
 
     private bool recentJump = false;
 
+    public bool paused = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -43,6 +45,8 @@ public class WalkController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (paused) return;
+
         if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, 1.2f * transform.localScale.y, groundLayer))
         {
             if (hit.collider.gameObject == grabScript.grabbedObject)
@@ -55,7 +59,7 @@ public class WalkController : MonoBehaviour
             isGrounded = false;
         }
 
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hitGround, 1.5f * transform.localScale.y, groundLayer) && !recentJump && !isGrounded)
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hitGround, 1.35f * transform.localScale.y, groundLayer) && !recentJump && !isGrounded)
         {
             transform.position = new Vector3(transform.position.x, transform.position.y - (transform.position.y - hitGround.point.y) + 1.2f, transform.position.z);
         }
