@@ -13,7 +13,7 @@ public class UICameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = cam.transform.position;
         transform.rotation = cam.transform.rotation;
+        transform.position = cam.transform.position  - transform.forward*0.5f + transform.right*0.5f;        
     }
 }
