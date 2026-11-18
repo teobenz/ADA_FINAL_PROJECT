@@ -42,9 +42,23 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
         inputScript = GameObject.Find("Player").GetComponent<InputScript>();
         rb = GetComponent<Rigidbody>();
     }
+    void Update()
+    {
+        if (inputScript.timeResumed)
+        {
+            if (manipulating)
+            {
+                Resume();
+            }
+            else
+            {
+                Manipulate();
+            }
+        }
+    }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         rb.WakeUp();
         if (inputScript.timeDir > 0)
@@ -53,10 +67,6 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
         } else if (inputScript.timeDir < 0)
         {
             Reverse();
-        }
-        if (inputScript.timeResumed && manipulating)
-        {
-            Resume();
         }
 
         if (!manipulating)
@@ -72,7 +82,7 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
                 instance = Instantiate(transparent, data.position, data.rotation);
             }
 
-            if (dataQueue.Count > 3000)
+            if (dataQueue.Count > 500)
             {
                 if (instance != null)
                 {

@@ -33,8 +33,23 @@ public class SundialTimeTracker : MonoBehaviour
         sundialAnimation = GetComponent<SundialAnimation>();
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        if (inputScript.timeResumed)
+        {
+            if (manipulating)
+            {
+                Resume();
+            }
+            else
+            {
+                Manipulate();
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
     {
         if (inputScript.timeDir > 0)
         {
@@ -44,17 +59,13 @@ public class SundialTimeTracker : MonoBehaviour
         {
             Reverse();
         }
-        if (inputScript.timeResumed && manipulating)
-        {
-            Resume();
-        }
 
         if (!manipulating)
         {
-            sundialAnimation.rotation = 360 * dataQueue.Count / 3000;
+            sundialAnimation.rotation = 360 * dataQueue.Count / 500;
             data currData = new data(sundialAnimation.rotation);
 
-            if (dataQueue.Count < 3000)
+            if (dataQueue.Count < 500)
             {
                 dataQueue.Enqueue(currData);
             }
