@@ -34,8 +34,23 @@ public class ActivatableTimeTracker : MonoBehaviour, iTimeTrack
         activatableScript = GetComponent<iActivatable>();
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        if (inputScript.timeResumed)
+        {
+            if (manipulating)
+            {
+                Resume();
+            }
+            else
+            {
+                Manipulate();
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
     {
         if (inputScript.timeDir > 0)
         {
@@ -45,16 +60,12 @@ public class ActivatableTimeTracker : MonoBehaviour, iTimeTrack
         {
             Reverse();
         }
-        if (inputScript.timeResumed && manipulating)
-        {
-            Resume();
-        }
 
         if (!manipulating)
         {
             data currData = new data(activatableScript.normalisedTime);
 
-            if (dataQueue.Count > 3000)
+            if (dataQueue.Count > 500)
             {
                 dataQueue.Dequeue();
             }

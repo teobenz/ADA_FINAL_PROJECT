@@ -38,8 +38,22 @@ public class CrusherTimeTracker : MonoBehaviour, iTimeTrack
         crusherScript = GetComponent<crusherController>();
     }
 
-    // Update is called once per frame
     void Update()
+    {
+        if (inputScript.timeResumed)
+        {
+            if (manipulating)
+            {
+                Resume();
+            } else
+            {
+                Manipulate();
+            }
+        }
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
     {
         if (inputScript.timeDir > 0)
         {
@@ -49,16 +63,12 @@ public class CrusherTimeTracker : MonoBehaviour, iTimeTrack
         {
             Reverse();
         }
-        if (inputScript.timeResumed && manipulating)
-        {
-            Resume();
-        }
 
         if (!manipulating)
         {
             data currData = new data(crusherScript.currentStep, crusherScript.globalTimer, crusherScript.activated, crusherScript.transform.position);
 
-            if (dataQueue.Count > 3000)
+            if (dataQueue.Count > 500)
             {
                 dataQueue.Dequeue();
             }

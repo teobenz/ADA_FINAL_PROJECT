@@ -1563,6 +1563,10 @@ PrefabInstance:
       value: Crusher
       objectReference: {fileID: 0}
     - target: {fileID: 4754495429664366549, guid: e38135b0043fbac47bfe4344a3e5ae8f, type: 3}
+      propertyPath: currentStep
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4754495429664366549, guid: e38135b0043fbac47bfe4344a3e5ae8f, type: 3}
       propertyPath: intervalTime
       value: 3.333
       objectReference: {fileID: 0}
