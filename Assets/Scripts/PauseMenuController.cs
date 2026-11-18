@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuController : MonoBehaviour
 {
@@ -49,5 +50,6 @@ public class PauseMenuController : MonoBehaviour
     public void onExit()
     {
         Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
     }
 }
