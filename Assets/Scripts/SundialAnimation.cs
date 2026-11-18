@@ -20,12 +20,6 @@ public class SundialAnimation : MonoBehaviour
             {
                 particles.Stop();
             }
-            rotation += Time.deltaTime * rotationSpeed;
-
-            if (rotation > 360)
-            {
-                rotation = 0;
-            }
         } else
         {
             if (particles.isStopped)
