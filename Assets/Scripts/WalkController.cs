@@ -91,7 +91,7 @@ public class WalkController : MonoBehaviour
                     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 } else if (crusher.manipulating && isCrouched) 
                 { 
-                    if ((hit.point - transform.position).magnitude < 0.5f)
+                    if ((hitAbove.point - transform.position).magnitude < 0.5f)
                     {
                         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                     }
@@ -120,6 +120,14 @@ public class WalkController : MonoBehaviour
         rotation += inputScript.lookDir[0] * 0.1f;
 
         transform.rotation = Quaternion.Euler(0, rotation, 0);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject == grabScript.grabbedObject)
+        {
+            grabScript.grabbedObject = null;
+        }
     }
 
     IEnumerator JumpedCoroutine()
