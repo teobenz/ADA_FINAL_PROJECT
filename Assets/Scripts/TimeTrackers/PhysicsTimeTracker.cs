@@ -33,9 +33,6 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
 
     private Rigidbody rb;
 
-    public GameObject transparent;
-    GameObject instance;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -73,23 +70,10 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
         {
             transformData data = new transformData(transform.position, transform.rotation, rb.linearVelocity, rb.angularVelocity);
 
-            if (dataQueue.Count == 0)
-            {
-                if (instance != null)
-                {
-                    Destroy(instance);
-                }
-                instance = Instantiate(transparent, data.position, data.rotation);
-            }
 
             if (dataQueue.Count > 500)
             {
-                if (instance != null)
-                {
-                    Destroy(instance);
-                }
                 transformData oldData = dataQueue.Dequeue();
-                instance = Instantiate(transparent, oldData.position, oldData.rotation);
                 dataQueue.Enqueue(data);
             }
             else
