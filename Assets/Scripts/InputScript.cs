@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,8 @@ public class InputScript : MonoBehaviour
     InputAction time;
     InputAction timeResume;
     InputAction esc;
+
+    public bool timeStart = false;
 
     public Vector2 moveDir = Vector2.zero;
     public Vector2 lookDir = Vector2.zero;
@@ -36,6 +39,8 @@ public class InputScript : MonoBehaviour
         time = playerInput.actions.FindAction("Time");
         timeResume = playerInput.actions.FindAction("TimeResume");
         esc = playerInput.actions.FindAction("Escape");
+
+        StartCoroutine(StartCooldown());
 
     }
 
@@ -70,5 +75,11 @@ public class InputScript : MonoBehaviour
         timeResumed = timeResume.WasPressedThisFrame();
 
         escPressed = esc.WasPressedThisFrame();
+    }
+
+    IEnumerator StartCooldown()
+    {
+        yield return new WaitForSeconds(5f);
+        timeStart = true;
     }
 }

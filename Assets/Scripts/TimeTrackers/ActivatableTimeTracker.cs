@@ -36,6 +36,8 @@ public class ActivatableTimeTracker : MonoBehaviour, iTimeTrack
 
     void Update()
     {
+        if (!inputScript.timeStart) return;
+
         if (inputScript.timeResumed)
         {
             if (manipulating)
@@ -52,6 +54,8 @@ public class ActivatableTimeTracker : MonoBehaviour, iTimeTrack
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!inputScript.timeStart) return;
+
         if (inputScript.timeDir > 0)
         {
             Forward();
