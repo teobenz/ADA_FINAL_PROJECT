@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SundialAnimation : MonoBehaviour
 {
+    public bool started = false;
     public bool manipulating = false;
 
     public float rotation = 0;
@@ -9,22 +10,31 @@ public class SundialAnimation : MonoBehaviour
 
     public ParticleSystem particles;
 
+    private void Start()
+    {
+        particles.Stop();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, rotation, transform.localRotation.eulerAngles.z);
+        if (started)
+        {
+            transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, rotation, transform.localRotation.eulerAngles.z);
 
-        if (!manipulating)
-        {
-            if (particles.isPlaying)
+            if (!manipulating)
             {
-                particles.Stop();
+                if (particles.isPlaying)
+                {
+                    particles.Stop();
+                }
             }
-        } else
-        {
-            if (particles.isStopped)
+            else
             {
-                particles.Play();
+                if (particles.isStopped)
+                {
+                    particles.Play();
+                }
             }
         }
     }

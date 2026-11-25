@@ -41,6 +41,8 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
     }
     void Update()
     {
+        if (!inputScript.timeStart) return;
+
         if (inputScript.timeResumed)
         {
             if (manipulating)
@@ -57,6 +59,8 @@ public class PhysicsTimeTracker : MonoBehaviour, iTimeTrack
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!inputScript.timeStart) return;
+
         rb.WakeUp();
         if (inputScript.timeDir > 0)
         {

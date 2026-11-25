@@ -73,8 +73,10 @@ public class WalkController : MonoBehaviour
         }
         else if (isCrouched && !inputScript.crouchPressed)
         {
-            if (!Physics.Raycast(transform.position, transform.up, 1f))
+            if (!Physics.Raycast(transform.position + transform.right * 0.5f, transform.up, 1f) && !Physics.Raycast(transform.position - transform.right * 0.5f, transform.up, 1f) && !Physics.Raycast(transform.position + transform.forward * 0.5f, transform.up, 1f) && !Physics.Raycast(transform.position - transform.forward * 0.5f, transform.up, 1f))
             {
+                Debug.Log(Physics.Raycast(transform.position + transform.forward * 0.5f, transform.up, 1));
+                Debug.DrawRay(transform.position + transform.forward*0.5f, transform.up);
                 transform.position += new Vector3(0, 0.5f, 0);
                 transform.localScale = Vector3.one;
                 moveSpeed *= 2;
@@ -82,7 +84,7 @@ public class WalkController : MonoBehaviour
             }
         }
 
-        if (Physics.Raycast(transform.position, transform.up, out RaycastHit hitAbove, 1.2f * transform.localScale.y))
+        if (Physics.Raycast(transform.position, transform.up, out RaycastHit hitAbove, 1.1f * transform.localScale.y))
         {
             if (hitAbove.collider.gameObject.TryGetComponent<crusherController>(out crusherController crusher))
             {

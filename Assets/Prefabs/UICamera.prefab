@@ -109,7 +109,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -5115,6 +5115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c86406c585c61a46af642b7804ce138, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  started: 0
   manipulating: 0
   rotation: 0
   rotationSpeed: 50

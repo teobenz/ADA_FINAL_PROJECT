@@ -214,8 +214,7 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras:
-  - {fileID: 0}
+  m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -287,7 +286,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4408461034496500491
 RectTransform:
   m_ObjectHideFlags: 0
@@ -560,6 +559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d70225c696dee64b9b43a99ddf457cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputScript
+  timeStart: 0
   moveDir: {x: 0, y: 0}
   lookDir: {x: 0, y: 0}
   jumpPressed: 0

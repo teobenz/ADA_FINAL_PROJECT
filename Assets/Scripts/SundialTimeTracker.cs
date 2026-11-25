@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -35,6 +36,14 @@ public class SundialTimeTracker : MonoBehaviour
 
     void Update()
     {
+        if (!inputScript.timeStart)
+        {
+            return;
+        } else
+        {
+            sundialAnimation.started = true;
+        }
+
         if (inputScript.timeResumed)
         {
             if (manipulating)
@@ -51,6 +60,8 @@ public class SundialTimeTracker : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!inputScript.timeStart) return;
+
         if (inputScript.timeDir > 0)
         {
             Forward();
