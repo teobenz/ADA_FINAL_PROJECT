@@ -1923,7 +1923,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4183257847900807870, guid: d3751a648da755b4b82a4690ad64b03c, type: 3}
       propertyPath: nextScene
-      value: CrusherScene
+      value: Level2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -124,14 +124,6 @@ public class WalkController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, rotation, 0);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject == grabScript.grabbedObject)
-        {
-            grabScript.grabbedObject = null;
-        }
-    }
-
     IEnumerator JumpedCoroutine()
     {
         recentJump = true;
