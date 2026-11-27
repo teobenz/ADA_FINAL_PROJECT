@@ -124,6 +124,11 @@ public class WalkController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, rotation, 0);
     }
 
+    public float getRotation()
+    {
+        return rotation;
+    }
+
     IEnumerator JumpedCoroutine()
     {
         recentJump = true;

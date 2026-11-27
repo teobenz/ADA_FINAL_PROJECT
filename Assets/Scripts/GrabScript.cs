@@ -22,13 +22,21 @@ public class GrabScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inputScript.timeDir != 0)
+        if (grabbedObject != null)
         {
-            grabbedObject = null;
-        } else if (inputScript.timeResumed)
-        {
-            grabbedObject = null;
+            if (grabbedObject.TryGetComponent<iTimeTrack>(out iTimeTrack time))
+            {
+                if (inputScript.timeDir != 0)
+                {
+                    grabbedObject = null;
+                }
+                else if (inputScript.timeResumed)
+                {
+                    grabbedObject = null;
+                }
+            }
         }
+        
 
         if (inputScript.grabPressed)
         {
@@ -58,6 +66,11 @@ public class GrabScript : MonoBehaviour
         {
             grabbedRb.linearVelocity = grabbedRb.linearVelocity * 0.5f;
             grabbedRb.linearVelocity += (grabPoint.transform.position - grabbedObject.transform.position).normalized * (grabPoint.transform.position - grabbedObject.transform.position).magnitude*2;
+
+            if ((transform.position - grabbedObject.transform.position).magnitude > 6)
+            {
+                grabbedObject = null;
+            }
         }
     }
 }

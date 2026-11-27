@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LaserScript : MonoBehaviour
 {
@@ -17,6 +18,11 @@ public class LaserScript : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 100))
         {
+            if (hit.transform.CompareTag("Player"))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+
             lineRenderer.SetPosition(1, hit.point);
         }
     }

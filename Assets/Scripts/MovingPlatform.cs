@@ -40,7 +40,7 @@ public class MovingPlatform : MonoBehaviour, iActivatable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("PhysicsObject"))
         {
             collision.gameObject.transform.parent = transform;
         }
@@ -48,7 +48,7 @@ public class MovingPlatform : MonoBehaviour, iActivatable
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("PhysicsObject"))
         {
             if (collision.transform.parent == transform)
             {
