@@ -9,7 +9,7 @@ public class CheckpointScript : MonoBehaviour
             PlayerPrefs.SetFloat("spawnPosX", other.transform.position.x);
             PlayerPrefs.SetFloat("spawnPosY", other.transform.position.y);
             PlayerPrefs.SetFloat("spawnPosZ", other.transform.position.z);
-            PlayerPrefs.SetFloat("spawnRotation", transform.eulerAngles.y);
+            PlayerPrefs.SetFloat("spawnRotation", other.gameObject.GetComponent<WalkController>().getRotation());
         }
     }
 }
